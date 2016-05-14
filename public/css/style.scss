@@ -1,0 +1,97 @@
+$project-green: rgba(77,182,119,0.89);
+$nav-width: 125px;
+$normal-padding: 30px;
+
+@mixin vertical-align() {
+  position:relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+body {
+  background: #fff;
+  font-family: "Open Sans", Open-Sans, Arial, sans-serif;
+  margin: 0;padding: 0;
+}
+
+a
+{
+  text-decoration: none;
+  color: white;
+}
+.logo
+{
+  position: absolute;
+  height: $nav-width;
+  width: $nav-width;
+  background: rgba(45,46,43,0.77);
+}
+#dashboard
+{
+  width:100%;
+  margin: 0 auto;
+  color: black;
+  overflow: hidden;
+
+
+  nav
+  {
+    position: absolute;
+    height:  calc(100% - #{$nav-width});
+    width: $nav-width;
+    left:0;
+    top:$nav-width;
+    background-color: $project-green;
+    color: white;
+
+    ul
+    {
+      padding: 0;margin: 0;
+      text-align: center;
+
+
+      li
+      {
+        padding: 15px 0;
+        border-top: 0.5px solid white;
+
+        &:last-child
+        {
+            border-bottom: 0.5px solid white;
+        }
+      }
+    }
+  }
+
+  .content
+  {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: $nav-width;
+
+    .header
+    {
+      height: $nav-width;
+      display: block;
+      width: 100%;
+      box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.16);
+
+      .title
+      {
+        padding-left: $normal-padding;
+        font-size: 30px;
+        font-weight: 600;
+        @include vertical-align();
+
+      }
+
+
+
+
+    }
+
+  }
+}
