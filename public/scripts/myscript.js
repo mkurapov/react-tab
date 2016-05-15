@@ -1,11 +1,12 @@
-
+//var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+// var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 
 var tabList = [
-  {'id': 1, 'name': 'Travels', 'url': '/travels' },
-  {'id': 2, 'name': 'Summary', 'url': '/summary' },
-  {'id': 3, 'name': 'Calendar', 'url': '/calendar' },
-  {'id': 4, 'name': 'Settings', 'url': '/settings' }
+  {'id': 1, 'name': 'travels', 'url': '/travels' },
+  {'id': 2, 'name': 'summary', 'url': '/summary' },
+  {'id': 3, 'name': 'calendar', 'url': '/calendar' },
+  {'id': 4, 'name': 'settings', 'url': '/settings' }
 ];
 
 
@@ -55,45 +56,26 @@ var Navigation = React.createClass({
   }
 });
 
+var Travels = React.createClass({
+    render: function(){
+        return(
+            <div className="module">
+
+            </div>
+        );
+    }
+});
 
 var Content = React.createClass({
     render: function(){
         return(
             <div className="content">
-                {this.props.currentTab === 1 ?
-                <div className="travels">
+              
+                <div className={this.props.tabList[this.props.currentTab-1].name}>
                   <div className="header">
-                    <div className="title">Travels</div>
-                  </div>
-
-
-                </div>
-                :null}
-
-                {this.props.currentTab === 2 ?
-                <div className="summary">
-                  <div className="header">
-                    <div className="title">Summary</div>
-
+                      <div className="title">{this.props.tabList[this.props.currentTab-1].name}</div>
                   </div>
                 </div>
-                :null}
-
-                {this.props.currentTab === 3 ?
-                <div className="calendar">
-                  <div className="header">
-                    <div className="title">Calendar</div>
-                  </div>
-                </div>
-                :null}
-
-                {this.props.currentTab === 4 ?
-                <div className="settings">
-                  <div className="header">
-                    <div className="title">Calendar</div>
-                  </div>
-                </div>
-                :null}
             </div>
         );
     }
@@ -120,7 +102,7 @@ var Dashboard = React.createClass({
           tabList={this.state.tabList}
           changeTab={this.changeTab}
         />
-        <Content currentTab={this.state.currentTab}/>
+        <Content currentTab={this.state.currentTab} tabList={this.state.tabList}/>
       </div>
     );
   }

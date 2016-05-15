@@ -56,6 +56,7 @@ a
       {
         padding: 15px 0;
         border-top: 0.5px solid white;
+        text-transform: capitalize;
 
         &:last-child
         {
@@ -68,7 +69,7 @@ a
   .content
   {
     position: absolute;
-    width: 100%;
+    width: calc(100% - #{$nav-width});
     height: 100%;
     left: $nav-width;
 
@@ -84,7 +85,11 @@ a
         padding-left: $normal-padding;
         font-size: 30px;
         font-weight: 600;
+        text-transform: capitalize;
         @include vertical-align();
+
+
+
 
       }
 
