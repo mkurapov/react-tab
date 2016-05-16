@@ -27,6 +27,10 @@ a
   height: $nav-width;
   width: $nav-width;
   background: rgba(45,46,43,0.77);
+  background-image: url(../images/travel-tracker.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 #dashboard
 {
@@ -146,14 +150,14 @@ a
           background-color: rgba(0,0,0,0.5);
         }
 
-        .name
+        .name, .startDate
         {
           position: absolute;
           left: $normal-padding;
-          top: 25px;
           font-size: 27px;
           font-weight: 100;
         }
+        .name{top:20px;}.startDate{bottom: 20px;}
 
         .budget
         {
