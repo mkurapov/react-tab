@@ -150,7 +150,7 @@ a
         {
           position: absolute;
           left: $normal-padding;
-          top: 20px;
+          top: 25px;
           font-size: 27px;
           font-weight: 100;
         }
@@ -158,10 +158,15 @@ a
         .budget
         {
           right: $normal-padding;
-          font-size: 20px;
-          &.initial
+          top:20px;
+          position: absolute;
+
+          h2
           {
-            @include vertical-align(absolute);
+            font-size: 25px;
+            font-weight: 100;
+            margin-top: 0;
+            margin-bottom: 25px;
           }
         }
 
