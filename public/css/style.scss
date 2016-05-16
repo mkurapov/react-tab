@@ -2,8 +2,8 @@ $project-green: rgba(77,182,119,0.89);
 $nav-width: 125px;
 $normal-padding: 30px;
 
-@mixin vertical-align() {
-  position:relative;
+@mixin vertical-align($position) {
+  position:$position;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -72,28 +72,126 @@ a
     width: calc(100% - #{$nav-width});
     height: 100%;
     left: $nav-width;
+    overflow: scroll;
 
     .header
     {
       height: $nav-width;
       display: block;
-      width: 100%;
+      width: calc(100% - #{$nav-width});
       box-shadow: 0px 2px 11px 0px rgba(0,0,0,0.16);
-
+      position: fixed;
+      background-color: white;
+      z-index: 100;
       .title
       {
         padding-left: $normal-padding;
         font-size: 30px;
         font-weight: 600;
         text-transform: capitalize;
-        @include vertical-align();
+        max-width: 300px;
+        @include vertical-align(relative);
 
+      }
+      button
+      {
+          float: right;
+          width: 147px;
+          height: 37px;
+          color: white;
+          font-size: 14px;
+          margin-right: $normal-padding;
+          background: $project-green;
+          border-radius: 31px;
+          box-shadow: none;
+          border: none;
+          cursor: pointer;
+          -webkit-transition: all 0.3s ease-in-out;
 
+          &:hover
+          {
+            -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.44);
+            -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.44);
+            box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.44);
+          }
+
+          &:focus
+          {
+            outline: none;
+          }
+      }
+    }
+
+    .trips
+    {
+      .trip
+      {
+        width: calc(100% - 2*#{$normal-padding});
+        position: relative;
+        top: $nav-width + $normal-padding;
+        height: 200px;
+        box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+        margin: 0 auto;
+
+        background-size: cover;
+        background-position: 50% 50%;
+        color: white;
+        margin-bottom: $normal-padding;
+
+        .overlay
+        {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          background-color: rgba(0,0,0,0.5);
+        }
+
+        .name
+        {
+          position: absolute;
+          left: $normal-padding;
+          top: 20px;
+          font-size: 27px;
+          font-weight: 100;
+        }
+
+        .budget
+        {
+          right: $normal-padding;
+          font-size: 20px;
+          &.initial
+          {
+            @include vertical-align(absolute);
+          }
+        }
+
+      }
+      .modal
+      {
+        position: absolute;
+        width: calc(100% + #{$nav-width});
+        height: 100%;
+        background-color: rgba(0,0,0,0.6);
+        z-index:101;
+        top: 0;
+        left: 0;
+        margin-left: -$nav-width;
+
+        .modal-body
+        {
+          width: 350px;
+          height: 250px;
+          border-radius: 30px;
+          position: absolute;
+          top:20%;
+          margin: 0 auto; left:0;right: 0;
+          background-color: white;
+          text-align: center;
+
+        }
 
 
       }
-
-
 
 
     }
