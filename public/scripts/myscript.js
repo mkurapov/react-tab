@@ -1,6 +1,9 @@
+//TODO: add user authentication : https://www.firebase.com/docs/android/guide/login/facebook.html
+
 //var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 //var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 //var stocksnap = require('stocksnap.io');
+
 
 var tabList = [
   {'id': 1, 'name': 'Trips', 'url': '/trips' },
@@ -8,7 +11,7 @@ var tabList = [
   {'id': 3, 'name': 'Calendar', 'url': '/calendar' },
   {'id': 4, 'name': 'Settings', 'url': '/settings' }
 ];
-
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var firebaseTripRef = new Firebase("https://mk-travel-tracker.firebaseio.com/trips");
 var globalImgUrl;
 var Tab = React.createClass({
@@ -67,9 +70,10 @@ var Trip = React.createClass({
 
   render: function(){
 
-
+    var tripImg = 'https://images.unsplash.com/photo-1461906903741-bf21de16ae85?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=e1d8452fec6943aa434121ae6ea842bf';
     var tripName = this.props.name;
-    var tripImg = this.props.imgUrl;
+    var tripStartDate = this.props.startDate;
+
     var backgroundImage = {backgroundImage: 'url(' + tripImg + ')'};
     var totalSpent = 0;
     var initialBudget = this.props.budget;
@@ -79,6 +83,7 @@ var Trip = React.createClass({
         <div className="trip" style={backgroundImage}>
           <div className="overlay"></div>
           <div className="name">{tripName}</div>
+          <div className="startDate">{tripStartDate}</div>
           <div className="budget">
             <h2>Budget: ${initialBudget}</h2>
             <h2>Spent: ${totalSpent}</h2>
@@ -115,7 +120,7 @@ var Trips = React.createClass({
       var tripNodes = this.props.data.map(function(trip)
       {
         return (
-          <Trip name={trip.name} budget={trip.budget} key={trip.id} imgUrl = {trip.imgUrl}></Trip>
+          <Trip name={trip.name} budget={trip.budget} key={trip.id} startDate = {trip.startDate}></Trip>
         );
 
       });
@@ -158,36 +163,14 @@ var Modal = React.createClass({
           return;
       }
 
-      function getRandomInt(min, max)
-      {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+      var today = new Date();
 
-      var API_KEY = '2576069-fd3a575367dc2b4471b2ae522';
-      var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent(name);
+      var dd = today.getDate();
+      var mm = today.getMonth(); //January is 0!
 
-      function getImageUrl(callback)
-      {
-        $.getJSON(URL, function(data){
+      today = months[mm]+' '+dd;
 
-          callback(data);
-        });
-      }
-
-      getImageUrl(function(data)
-      {
-        if (parseInt(data.totalHits) > 0)
-        {
-              globalImgUrl = (data.hits[0].webformatURL).toString(); 
-        }
-        else
-        {
-          console.log('No hits');
-        }
-      });
-
-
-      this.props.onAddNewTrip({name: name, budget: budget, imgUrl: globalImgUrl});
+      this.props.onAddNewTrip({name: name, budget: budget, startDate: today});
       this.setState({name: '', budget: 0});
       // TODO: close modal on add trip maybe?
     },
@@ -283,7 +266,7 @@ var Content = React.createClass({
             id: data.val().id,
             name: data.val().name,
             budget: data.val().budget,
-            imgUrl: data.val().imgUrl
+            startDate: data.val().startDate
           }
 
           trips.push(trip);
