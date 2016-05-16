@@ -66,16 +66,33 @@ var Trip = React.createClass({
 
 
   render: function(){
+    // var tripName = {this.props.name}.toString();
+    var API_KEY = '2576069-fd3a575367dc2b4471b2ae522';
+    var URL = "https://pixabay.com/api/?key="+API_KEY+"&q="+encodeURIComponent('Moscow');
+    var imgUrl;
+    $.getJSON(URL, function(data){
+        if (parseInt(data.totalHits) > 0)
+            $.each(data.hits, function(i, hit){ console.log(hit.pageURL); });
+        else
+            console.log('No hits');
+    });
 
-    var imgUrl = 'https://images.unsplash.com/photo-1461906903741-bf21de16ae85?format=auto&auto=compress&dpr=1&crop=entropy&fit=crop&w=1440&h=960&q=80';
+    //imgUrl = 'https://images.unsplash.com/photo-1461906903741-bf21de16ae85?format=auto&auto=compress&dpr=1&crop=entropy&fit=crop&w=1440&h=960&q=80';
     var backgroundImage = {backgroundImage: 'url(' + imgUrl + ')'};
+    var totalSpent = 0;
     var initialBudget = this.props.budget;
-    var remainingBudget = this.props.budget;
+    var remainingBudget = this.props.budget - totalSpent;
+
     return (
         <div className="trip" style={backgroundImage}>
           <div className="overlay"></div>
           <div className="name">{this.props.name}</div>
-          <div className="budget initial">Budget: {this.props.budget}</div>
+          <div className="budget">
+            <h2>Budget: ${initialBudget}</h2>
+            <h2>Spent: ${totalSpent}</h2>
+            <h2>Remaining: ${remainingBudget}</h2>
+
+          </div>
       </div>
     );
   }
